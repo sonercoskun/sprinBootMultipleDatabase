@@ -1,12 +1,13 @@
 package com.example.demo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -18,9 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableJpaRepositories(
-        entityManagerFactoryRef = "db2EntityMgrFactory", transactionManagerRef = "db2TransactionMgr",
-        basePackages = "com.example.demo.repository.oracle")
 @EnableTransactionManagement
 public class Db2Config {
     @Bean(name = "datasource2")
@@ -45,5 +43,9 @@ public class Db2Config {
     @Bean(name = "db2TransactionMgr")
     public PlatformTransactionManager db2TransactionMgr(@Qualifier("db2EntityMgrFactory") final EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
+    }
+    @Bean("jdbc2")
+    public JdbcTemplate createJdbcTemplate1(@Autowired @Qualifier("datasource2") DataSource dataSource1){
+        return new JdbcTemplate(dataSource1);
     }
 }

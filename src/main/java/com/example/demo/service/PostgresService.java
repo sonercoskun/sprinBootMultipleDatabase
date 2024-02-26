@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PostgresService {
-    private JdbcTemplate postgresJdbcTemplate;
-    private Db1Config db1Config;
+    private final JdbcTemplate postgresJdbcTemplate;
+    private final Db1Config db1Config;
 
     public PostgresService(JdbcTemplate postgresJdbcTemplate, Db1Config db1Config){
         this.postgresJdbcTemplate = postgresJdbcTemplate;

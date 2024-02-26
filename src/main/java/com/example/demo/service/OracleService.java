@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OracleService {
-    private JdbcTemplate oracleJdbcTemplate;
-    private Db2Config db2Config;
+    private final JdbcTemplate oracleJdbcTemplate;
+    private final Db2Config db2Config;
 
     public OracleService(JdbcTemplate oracleJdbcTemplate, Db2Config db2Config){
         this.oracleJdbcTemplate = oracleJdbcTemplate;
